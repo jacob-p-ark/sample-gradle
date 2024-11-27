@@ -1,6 +1,5 @@
 package com.example.demo.config;
 
-import com.example.demo.filter.CustomErrorPageFilter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -84,18 +83,18 @@ public class WebConfig implements WebMvcConfigurer {
 //        servletBean.addInitParameter("Access-Control-Max-Age", "1728000");
         servletBean.setLoadOnStartup(1);
 
-        log.info("ServletRegistrationBean");
-        log.info("ServletRegistrationBean");
-        log.info("ServletRegistrationBean");
+        log.info("/api/servlets/vkeypad.do");
+        log.info("/api/servlets/vkeypad.do");
+        log.info("/api/servlets/vkeypad.do");
 
         return servletBean;
     }
 
-    @Bean
-    public FilterRegistrationBean<CustomErrorPageFilter> customErrorPageFilter() {
-        FilterRegistrationBean<CustomErrorPageFilter> registrationBean = new FilterRegistrationBean<>();
-        registrationBean.setFilter(new CustomErrorPageFilter());
-        registrationBean.setOrder(1); // 필터 순서 설정
-        return registrationBean;
-    }
+//    @Bean
+//    public FilterRegistrationBean<CustomErrorPageFilter> customErrorPageFilter() {
+//        FilterRegistrationBean<CustomErrorPageFilter> registrationBean = new FilterRegistrationBean<>();
+//        registrationBean.setFilter(new CustomErrorPageFilter());
+//        registrationBean.setOrder(1); // 필터 순서 설정
+//        return registrationBean;
+//    }
 }

@@ -12,12 +12,12 @@ public class HelloController {
 
     private static final Logger log = LoggerFactory.getLogger(HelloController.class);
 
-    @GetMapping("/api/hello")
+    @GetMapping("/api/get")
     public String hello() {
         return "Get, Swagger!";
     }
 
-    @PostMapping("/api/hello")
+    @PostMapping("/api/post")
     public Map<String, Object> Post(@RequestBody Map<String, Object> req) {
         log.info("req.toString(): {}", req.toString());
         Map<String, Object> ret = new HashMap<String, Object>();
