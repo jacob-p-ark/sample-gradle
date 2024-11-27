@@ -50,7 +50,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     public class TestServlet extends HttpServlet {
         @Override
-        protected void doGet(HttpServletRequest req, HttpServletResponse response) {
+        protected void doGet(HttpServletRequest req, HttpServletResponse response)throws ServletException, IOException {
 
             try {
                 response.setContentType("application/json");
@@ -65,13 +65,12 @@ public class WebConfig implements WebMvcConfigurer {
                 // 응답 스트림을 명시적으로 닫습니다.
                 response.getOutputStream().close();
 
-                if(true) throw new IOException("ServletOutputStream is already closed!");
-
                 // 닫힌 스트림에 다시 쓰려고 시도하여 예외 발생
                 response.getOutputStream().write("This will cause an exception".getBytes());
+
+                if(true) throw new IOException("ServletOutputStream is already closed!");
             } catch (IOException e ) {
-//                throw new IOException("ServletOutputStream is already closed!");
-                log.info( e.getMessage() );
+                e.printStackTrace();
             }
         }
 
