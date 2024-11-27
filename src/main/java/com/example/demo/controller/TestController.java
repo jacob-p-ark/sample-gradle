@@ -27,7 +27,7 @@ public class TestController {
     }
 
     @GetMapping("/trigger-error")
-    public void triggerServletOutputStreamClosedError(HttpServletResponse response) throws IOException {
+    public void test(HttpServletResponse response) throws IOException {
 
             // 응답 스트림에 데이터를 씁니다.
             response.getOutputStream().write("First Response".getBytes());
@@ -38,4 +38,25 @@ public class TestController {
             // 닫힌 스트림에 다시 쓰려고 시도하여 예외 발생
             response.getOutputStream().write("This will cause an exception".getBytes());
     }
+
+//    /**
+//     * @param inputBody
+//     * @param request
+//     * @param session
+//     * @return
+//     */
+//    @PostMapping(value = "/request/cert/sms", produces = "application/json")
+//    @ResponseBody
+//    public DeferredResult<ResponseEntity<?>> requestCertSms(@RequestBody(required = false) String inputBody, HttpServletRequest request, HttpSession session) {
+//        log.info(">>>>>>> /request/cert/sms → requestCertSms <<<<<<<<");
+//        ServletRequest req = new PluginFreeRequest(request);
+//
+////		String userIdNum2 = req.getParameter("E2E_PASS_01");
+////		JsonObject inputJsonObject = new JsonObject(inputBody);
+////		inputJsonObject.put("acSocialNumber", inputJsonObject.getString("userIdNum1") + userIdNum2);
+////		inputBody = inputJsonObject.toString();
+//
+//        DeferredResult<ResponseEntity<?>> jresult = comService.request("requestCertSms", inputBody, request, session);
+//        return jresult;
+//    }
 }

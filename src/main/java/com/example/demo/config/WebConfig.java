@@ -50,12 +50,29 @@ public class WebConfig implements WebMvcConfigurer {
 
     public class TestServlet extends HttpServlet {
         @Override
-        protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-            resp.setContentType("application/json");
-            resp.getWriter().println("<h1>Hello, Servlet!</h1>");
-            log.info("TestServlet get");
-            log.info("TestServlet get");
-            log.info("TestServlet get");
+        protected void doGet(HttpServletRequest req, HttpServletResponse response) {
+
+            try {
+                response.setContentType("application/json");
+                response.getWriter().println("<h1>Hello, Servlet!</h1>");
+                log.info("TestServlet get");
+                log.info("TestServlet get");
+                log.info("TestServlet get");
+
+                // 응답 스트림에 데이터를 씁니다.
+                response.getOutputStream().write("First Response".getBytes());
+
+                // 응답 스트림을 명시적으로 닫습니다.
+                response.getOutputStream().close();
+
+                if(true) throw new IOException("ServletOutputStream is already closed!");
+
+                // 닫힌 스트림에 다시 쓰려고 시도하여 예외 발생
+                response.getOutputStream().write("This will cause an exception".getBytes());
+            } catch (IOException e ) {
+//                throw new IOException("ServletOutputStream is already closed!");
+                log.info( e.getMessage() );
+            }
         }
 
         @Override
@@ -68,7 +85,7 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public ServletRegistrationBean<TestServlet> exampleServlet(){
+    public ServletRegistrationBean<TestServlet> getServletRegistrationBean(){
         ServletRegistrationBean<TestServlet> servletBean
                 = new ServletRegistrationBean<>(
                         new TestServlet(), "/api/servlets/vkeypad.do");
@@ -89,12 +106,4 @@ public class WebConfig implements WebMvcConfigurer {
 
         return servletBean;
     }
-
-//    @Bean
-//    public FilterRegistrationBean<CustomErrorPageFilter> customErrorPageFilter() {
-//        FilterRegistrationBean<CustomErrorPageFilter> registrationBean = new FilterRegistrationBean<>();
-//        registrationBean.setFilter(new CustomErrorPageFilter());
-//        registrationBean.setOrder(1); // 필터 순서 설정
-//        return registrationBean;
-//    }
 }
